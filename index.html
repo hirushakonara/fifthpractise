@@ -178,6 +178,27 @@ function readMore() {
     alert("Full article coming soon 🚀");
 }
 </script>
+<div id="liveScore">Loading live score...</div>
+
+<script>
+async function getScore() {
+    try {
+        const res = await fetch("https://api.cricapi.com/v1/currentMatches?apikey=YOUR_API_KEY&offset=0");
+        const data = await res.json();
+
+        let match = data.data[0];
+
+        document.getElementById("liveScore").innerHTML = `
+            <h2>${match.name}</h2>
+            <p>${match.status}</p>
+        `;
+    } catch (err) {
+        document.getElementById("liveScore").innerHTML = "Error loading score";
+    }
+}
+
+getScore();
+</script>
 
 </body>
 </html>
